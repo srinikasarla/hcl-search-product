@@ -1,4 +1,20 @@
-<p>
-  <input [(ngModel)]="facet.procurementPreCycleValidationRequest" [ngModelOptions]="{standalone: true}"/>
-  <button (click)="search()">Search</button>
-</p>
+<input class="search-input" type="text" [(ngModel)]="searchText"/>
+<button (click)="search()">Search</button>
+
+<div *ngIf="searchResults?.length > 0">
+  <h2>Search Results</h2>
+  <hr/>
+  <div class="products" *ngFor="let product of searchResults">
+    <tr>
+      <td colspan="4"><img class="product_image" src="{{'data:image/png;base64,' + product.imageBytes}}" alt="{{product.name}}" height="99" width="99"/></td>
+      <td>
+        <div class="product_name">Product Name: {{product.name}}</div>
+        <div class="product_desc">Product Description: {{product.description}}</div>
+        <div class="product_rating">Rating: {{product.averageRating}}/{{product.totalRatings}}</div>
+        <div class="product_categories">Categories: <span *ngFor="let category of product.categories"><a href="" routerLink="/search/{{category}}">{{category}}</a>  &nbsp;</span>
+        </div>
+      </td>
+    </tr>
+    <hr/>
+  </div>
+</div>
